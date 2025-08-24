@@ -10,29 +10,12 @@ import {
   type FieldValues,
   FormProvider,
   useFormContext,
-  type UseFormReturn,
 } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
-const Form = <TFieldValues extends FieldValues>({
-  form,
-  onSubmit,
-  children,
-  className,
-}: {
-  form: UseFormReturn<TFieldValues>
-  onSubmit: (values: TFieldValues) => void
-  children: React.ReactNode
-  className?: string
-}) => (
-  <FormProvider {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className={cn(className)}>
-      {children}
-    </form>
-  </FormProvider>
-)
+const Form = FormProvider
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
