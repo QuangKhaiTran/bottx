@@ -14,7 +14,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export const createRoomSchema = z.object({
@@ -23,7 +22,7 @@ export const createRoomSchema = z.object({
   maxBet: z.coerce.number().min(100, 'Maximum bet must be at least $100'),
   maxPlayers: z.enum(['4', '6', '8']),
   betDuration: z.enum(['60', '90', '120']),
-}).refine(data => data.maxBet > data.minBet, {
+}).refine((data) => data.maxBet > data.minBet, {
     message: "Max bet must be greater than min bet.",
     path: ["maxBet"],
 });
