@@ -96,6 +96,8 @@ export interface PvPPlayer {
 export interface PvPGameSession {
   id: string;
   houseId: string;
+  houseUsername: string;
+  houseBalance: number;
   maxPlayers: number;
   currentPlayers: PvPPlayer[];
   gameState: 'waiting' | 'betting' | 'rolling' | 'finished';
