@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { Header } from '../layout/header';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { PvPLobby } from '../pvp/pvp-lobby';
 
 
 const ConfettiPiece = ({ id }: { id: number }) => {
@@ -52,8 +53,9 @@ export function GameBoard() {
         
       <div className="max-w-7xl mx-auto space-y-4">
         <Tabs defaultValue="tai-xiu" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="tai-xiu">Tài Xỉu</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="tai-xiu">Tài Xỉu (Bot)</TabsTrigger>
+            <TabsTrigger value="pvp">Tài Xỉu (PvP)</TabsTrigger>
             <TabsTrigger value="chan-le">Chẵn Lẻ</TabsTrigger>
           </TabsList>
           <TabsContent value="tai-xiu">
@@ -116,6 +118,9 @@ export function GameBoard() {
                 </div>
             </div>
           </TabsContent>
+           <TabsContent value="pvp">
+              <PvPLobby />
+           </TabsContent>
           <TabsContent value="chan-le">
              <Card className="mt-4">
                 <CardContent className="pt-6">

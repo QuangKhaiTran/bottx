@@ -62,3 +62,78 @@ export interface PlayerState {
   balance: number;
   pnl: number;
 }
+
+// PvP Types
+
+export interface HousePlayer {
+  id: string;
+  username: string;
+  balance: number;
+  currentGameId: string | null;
+  houseStats: {
+    totalGamesAsHouse: number;
+    totalWinningsAsHouse: number;
+    winRateAsHouse: number;
+  };
+}
+
+export interface PvPPlayer {
+  id: string;
+  username: string;
+  balance: number;
+  currentBet: {
+    amount: number;
+    type: 'tai' | 'xiu';
+    timestamp: number;
+  } | null;
+  playerStats: {
+    totalGamesPlayed: number;
+    totalWinnings: number;
+    winRate: number;
+  };
+}
+
+export interface PvPGameSession {
+  id: string;
+  houseId: string;
+  maxPlayers: number;
+  currentPlayers: PvPPlayer[];
+  gameState: 'waiting' | 'betting' | 'rolling' | 'finished';
+  countdown: number;
+  betDuration: number; 
+  minBet: number;
+  maxBet: number;
+  result: { dice: [number, number, number], result: BetChoice } | null;
+  createdAt: number;
+}
+
+
+export interface ChatMessage {
+  id: string;
+  playerId: string;
+  username: string;
+  message: string;
+  timestamp: number;
+  type: 'chat' | 'system' | 'result';
+}
+
+export interface Achievement {
+    id: string;
+    name: string;
+    description: string;
+    reward: number;
+}
+
+export interface PvPProfile {
+  stats: {
+    totalGamesAsHouse: number;
+    totalGamesAsPlayer: number;
+    avgWinRateAsHouse: number;
+    avgWinRateAsPlayer: number;
+    biggestWin: number;
+    favoritePosition: 'tai' | 'xiu';
+  };
+  achievements: Achievement[];
+  reputation: number;
+  level: number;
+}
