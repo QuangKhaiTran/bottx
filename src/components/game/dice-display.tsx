@@ -4,79 +4,32 @@ import type { GamePhase, BetChoice } from '@/types';
 import { cn } from '@/lib/utils';
 import React, { useState, useEffect } from 'react';
 
-interface DiceDisplayProps {
-  phase: GamePhase;
-  countdown: number;
-  dice: [number, number, number];
-  result: BetChoice | null;
-}
+// SVG Dice Components
+const DiceBase = ({ children, className, style }: { children: React.ReactNode, className?: string, style?: React.CSSProperties }) => (
+  <svg className={className} style={style} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="3" width="26" height="26" rx="5" fill="currentColor" />
+    {children}
+  </svg>
+);
+const Dot = ({ cx, cy }: { cx: number, cy: number }) => <circle cx={cx} cy={cy} r={2.5} fill="#f0f0f0" />;
 
-const DiceIcon = ({ value }: { value: number }) => {
-  const dots = React.useMemo(() => {
-    const baseClasses = 'absolute w-3 h-3 bg-white rounded-full';
-    switch (value) {
-      case 1:
-        return [<div key="1" className={cn(baseClasses, 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2')}></div>];
-      case 2:
-        return [
-          <div key="1" className={cn(baseClasses, 'top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="2" className={cn(baseClasses, 'bottom-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>
-        ];
-      case 3:
-        return [
-          <div key="1" className={cn(baseClasses, 'top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="2" className={cn(baseClasses, 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="3" className={cn(baseClasses, 'bottom-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>
-        ];
-      case 4:
-        return [
-          <div key="1" className={cn(baseClasses, 'top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="2" className={cn(baseClasses, 'top-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="3" className={cn(baseClasses, 'bottom-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="4" className={cn(baseClasses, 'bottom-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>
-        ];
-      case 5:
-        return [
-          <div key="1" className={cn(baseClasses, 'top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="2" className={cn(baseClasses, 'top-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="3" className={cn(baseClasses, 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="4" className={cn(baseClasses, 'bottom-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="5" className={cn(baseClasses, 'bottom-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>
-        ];
-      case 6:
-        return [
-          <div key="1" className={cn(baseClasses, 'top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="2" className={cn(baseClasses, 'top-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="3" className={cn(baseClasses, 'top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="4" className={cn(baseClasses, 'top-1/2 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="5" className={cn(baseClasses, 'bottom-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2')}></div>,
-          <div key="6" className={cn(baseClasses, 'bottom-1/4 right-1/4 -translate-x-1/2 -translate-y-1/2')}></div>
-        ];
-      default:
-        return [];
-    }
-  }, [value]);
+const DiceOneIcon = (props: any) => <DiceBase {...props}><Dot cx={16} cy={16} /></DiceBase>;
+const DiceTwoIcon = (props: any) => <DiceBase {...props}><Dot cx={9} cy={9} /><Dot cx={23} cy={23} /></DiceBase>;
+const DiceThreeIcon = (props: any) => <DiceBase {...props}><Dot cx={9} cy={9} /><Dot cx={16} cy={16} /><Dot cx={23} cy={23} /></DiceBase>;
+const DiceFourIcon = (props: any) => <DiceBase {...props}><Dot cx={9} cy={9} /><Dot cx={9} cy={23} /><Dot cx={23} cy={9} /><Dot cx={23} cy={23} /></DiceBase>;
+const DiceFiveIcon = (props: any) => <DiceBase {...props}><Dot cx={9} cy={9} /><Dot cx={9} cy={23} /><Dot cx={16} cy={16} /><Dot cx={23} cy={9} /><Dot cx={23} cy={23} /></DiceBase>;
+const DiceSixIcon = (props: any) => <DiceBase {...props}><Dot cx={9} cy={9} /><Dot cx={9} cy={16} /><Dot cx={9} cy={23} /><Dot cx={23} cy={9} /><Dot cx={23} cy={16} /><Dot cx={23} cy={23} /></DiceBase>;
 
-  return <div className="relative w-16 h-16 bg-primary rounded-lg shadow-lg">{dots}</div>;
+const Dice = ({ value, colorClass, className, style }: { value: number, colorClass: string, className?: string, style?: React.CSSProperties }) => {
+    const finalClassName = `w-16 h-16 ${colorClass} ${className || ''}`;
+    const diceComponents = [DiceOneIcon, DiceTwoIcon, DiceThreeIcon, DiceFourIcon, DiceFiveIcon, DiceSixIcon];
+    const DiceComponent = diceComponents[value - 1];
+    return DiceComponent ? <DiceComponent className={finalClassName} style={style} /> : null;
 };
+
 
 export function DiceDisplay({ phase, countdown, dice, result }: DiceDisplayProps) {
   const sum = dice[0] + dice[1] + dice[2];
-  const [rollingValues, setRollingValues] = useState<[number, number, number]>([1, 2, 3]);
-
-  useEffect(() => {
-    if (phase === 'rolling') {
-      const intervalId = setInterval(() => {
-        setRollingValues([
-          Math.floor(Math.random() * 6) + 1 as number,
-          Math.floor(Math.random() * 6) + 1 as number,
-          Math.floor(Math.random() * 6) + 1 as number
-        ]);
-      }, 150);
-      return () => clearInterval(intervalId);
-    }
-  }, [phase]);
-
 
   const renderContent = () => {
     switch (phase) {
@@ -91,31 +44,24 @@ export function DiceDisplay({ phase, countdown, dice, result }: DiceDisplayProps
         return (
           <div className="flex flex-col items-center justify-center h-full">
             <div className="text-lg text-muted-foreground mb-4">Rolling...</div>
-            <div className="flex gap-4">
-              {rollingValues.map((value, i) => (
-                <div key={i} className="animate-dice-spin">
-                  <DiceIcon value={value} />
-                </div>
-              ))}
-            </div>
+            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-primary"></div>
           </div>
         );
       case 'result':
+        const diceColorClass = result === 'tai' ? 'text-yellow-400' : 'text-primary';
         return (
           <div className="flex flex-col items-center justify-center h-full">
             <div className="flex gap-4 mb-4">
-              {dice.map((d, i) => (
-                <div key={i} className="animate-dice-land" style={{ animationDelay: `${i * 100}ms` }}>
-                  <DiceIcon value={d} />
-                </div>
-              ))}
+                 <Dice value={dice[0]} colorClass={diceColorClass} className="animate-dice-land" />
+                 <Dice value={dice[1]} colorClass={diceColorClass} className="animate-dice-land" style={{ animationDelay: '0.1s' }} />
+                 <Dice value={dice[2]} colorClass={diceColorClass} className="animate-dice-land" style={{ animationDelay: '0.2s' }} />
             </div>
             <div className="text-2xl font-bold font-code text-white">
               Total: {sum}
             </div>
             <div className={cn("text-6xl font-extrabold uppercase mt-2 text-gradient", {
-              'text-primary': result === 'xiu',
-              'text-yellow-400': result === 'tai',
+              'from-primary to-pink-700': result === 'xiu',
+              'from-yellow-400 to-orange-500': result === 'tai',
             })}>
               {result}
             </div>
