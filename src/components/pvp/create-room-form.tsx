@@ -46,7 +46,8 @@ export function CreateRoomForm({ onSubmit }: CreateRoomFormProps) {
   });
 
   return (
-    <Form form={form} onSubmit={onSubmit} className="space-y-6">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="capital"
@@ -138,6 +139,7 @@ export function CreateRoomForm({ onSubmit }: CreateRoomFormProps) {
                 />
         </div>
         <Button type="submit" className="w-full">Create PvP Room</Button>
+      </form>
     </Form>
   );
 }
