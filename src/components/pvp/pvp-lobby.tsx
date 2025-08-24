@@ -6,9 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Crown, Home, PlusCircle, Users } from 'lucide-react';
 import type { PvPGameSession } from '@/types';
-import { CreateRoomForm, createRoomSchema } from './create-room-form';
+import { CreateRoomForm, type CreateRoomFormValues } from './create-room-form';
 import { PvPRoomCard } from './pvp-room-card';
-import type { z } from 'zod';
 
 const initialRooms: PvPGameSession[] = [
   {
@@ -63,7 +62,7 @@ export function PvPLobby() {
   const [rooms, setRooms] = useState<PvPGameSession[]>(initialRooms);
   const [isCreateRoomOpen, setCreateRoomOpen] = useState(false);
 
-  const handleCreateRoom = (values: z.infer<typeof createRoomSchema>) => {
+  const handleCreateRoom = (values: CreateRoomFormValues) => {
     console.log("Creating room with values:", values);
     const newRoom: PvPGameSession = {
       id: `room-${Date.now()}`,

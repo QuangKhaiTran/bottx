@@ -27,7 +27,7 @@ export const createRoomSchema = z.object({
     path: ["maxBet"],
 });
 
-type CreateRoomFormValues = z.infer<typeof createRoomSchema>;
+export type CreateRoomFormValues = z.infer<typeof createRoomSchema>;
 
 interface CreateRoomFormProps {
     onSubmit: (values: CreateRoomFormValues) => void;
