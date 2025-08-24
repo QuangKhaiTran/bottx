@@ -2,7 +2,6 @@
 
 import { useGameEngine } from '@/hooks/use-game-engine';
 import { useBotController } from '@/hooks/use-bot-controller';
-import { Header } from '@/components/layout/header';
 import { DiceDisplay } from '@/components/game/dice-display';
 import { BettingControls } from '@/components/game/betting-controls';
 import { HistoryLog } from '@/components/game/history-log';
@@ -12,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Users, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
+import { Header } from '../layout/header';
 
 const ConfettiPiece = ({ id }: { id: number }) => {
     const [style, setStyle] = useState({});
@@ -48,8 +48,7 @@ export function GameBoard() {
         {gameState.lastWin && <FlyingNumber amount={gameState.lastWin.amount} choice={gameState.lastWin.choice} />}
         {gameState.lastWin && Array.from({ length: 100 }).map((_, i) => <ConfettiPiece key={i} id={i} />)}
         
-      <main className="max-w-7xl mx-auto space-y-4">
-        <Header balance={playerState.balance} />
+      <div className="max-w-7xl mx-auto space-y-4">
         
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           <div className="lg:col-span-3 space-y-4">
@@ -109,7 +108,7 @@ export function GameBoard() {
                 </Card>
             </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { Sidebar } from '@/components/layout/sidebar';
 
 export const metadata: Metadata = {
   title: 'Lucky Dice Trader',
@@ -23,7 +24,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased no-scrollbar">
-        {children}
+        <div className="flex">
+          <Sidebar />
+          <main className="flex-1">
+            {children}
+          </main>
+        </div>
         <Toaster />
       </body>
     </html>
