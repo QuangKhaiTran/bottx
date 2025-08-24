@@ -8,7 +8,7 @@ import { HistoryLog } from '@/components/game/history-log';
 import { BotPanel } from '@/components/bot/bot-panel';
 import { BotStats } from '@/components/bot/bot-stats';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Users, DollarSign, Construction } from 'lucide-react';
+import { Users, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { Header } from '../layout/header';
@@ -53,10 +53,9 @@ export function GameBoard() {
         
       <div className="max-w-7xl mx-auto space-y-4">
         <Tabs defaultValue="tai-xiu" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="tai-xiu">Tài Xỉu (Bot)</TabsTrigger>
             <TabsTrigger value="pvp">Tài Xỉu (PvP)</TabsTrigger>
-            <TabsTrigger value="chan-le">Chẵn Lẻ</TabsTrigger>
           </TabsList>
           <TabsContent value="tai-xiu">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mt-4">
@@ -121,17 +120,6 @@ export function GameBoard() {
            <TabsContent value="pvp">
               <PvPLobby />
            </TabsContent>
-          <TabsContent value="chan-le">
-             <Card className="mt-4">
-                <CardContent className="pt-6">
-                    <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-                        <Construction className="w-16 h-16 text-muted-foreground mb-4"/>
-                        <h2 className="text-2xl font-bold">Chẵn Lẻ Game</h2>
-                        <p className="text-muted-foreground">This game is currently under construction. Check back later!</p>
-                    </div>
-                </CardContent>
-             </Card>
-          </TabsContent>
         </Tabs>
       </div>
     </div>
