@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const formSchema = z.object({
+export const createRoomSchema = z.object({
   capital: z.coerce.number().min(10000, 'Minimum capital is $10,000'),
   minBet: z.coerce.number().min(10, 'Minimum bet is $10'),
   maxBet: z.coerce.number().min(100, 'Maximum bet must be at least $100'),
@@ -30,12 +30,12 @@ const formSchema = z.object({
 
 
 interface CreateRoomFormProps {
-    onSubmit: (values: z.infer<typeof formSchema>) => void;
+    onSubmit: (values: z.infer<typeof createRoomSchema>) => void;
 }
 
 export function CreateRoomForm({ onSubmit }: CreateRoomFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof createRoomSchema>>({
+    resolver: zodResolver(createRoomSchema),
     defaultValues: {
       capital: 10000,
       minBet: 10,
@@ -125,7 +125,7 @@ export function CreateRoomForm({ onSubmit }: CreateRoomFormProps) {
                         <FormControl>
                         <SelectTrigger>
                             <SelectValue placeholder="Select round duration" />
-                        </SelectTrigger>
+                        </Trigger>
                         </FormControl>
                         <SelectContent>
                             <SelectItem value="60">60 seconds</SelectItem>

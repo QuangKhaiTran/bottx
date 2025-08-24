@@ -8,9 +8,11 @@ import { Crown, Home, PlusCircle, Users } from 'lucide-react';
 import type { PvPGameSession } from '@/types';
 import { CreateRoomForm } from './create-room-form';
 import { PvPRoomCard } from './pvp-room-card';
+import type { z } from 'zod';
+import type { createRoomSchema } from './create-room-form';
 
 // Mock data based on your plan
-const mockRooms: PvPGameSession[] = [
+const initialRooms: PvPGameSession[] = [
   {
     id: 'room-1',
     houseId: 'house-player-1',
@@ -60,11 +62,28 @@ const mockRooms: PvPGameSession[] = [
 
 
 export function PvPLobby() {
+  const [rooms, setRooms] = useState<PvPGameSession[]>(initialRooms);
   const [isCreateRoomOpen, setCreateRoomOpen] = useState(false);
 
-  const handleCreateRoom = (values: any) => {
+  const handleCreateRoom = (values: z.infer<typeof createRoomSchema>) => {
     console.log("Creating room with values:", values);
-    // Here you would typically call a server function to create the room
+    const newRoom: PvPGameSession = {
+      id: `room-${Date.now()}`,
+      houseId: 'current-user', // Placeholder
+      houseUsername: 'New House', // Placeholder
+      houseBalance: values.capital,
+      maxPlayers: parseInt(values.maxPlayers, 10),
+      currentPlayers: [],
+      gameState: 'waiting',
+      countdown: parseInt(values.betDuration, 10),
+      betDuration: parseInt(values.betDuration, 10),
+      minBet: values.minBet,
+      maxBet: values.maxBet,
+      result: null,
+      createdAt: Date.now(),
+    };
+    
+    setRooms(prevRooms => [newRoom, ...prevRooms]);
     setCreateRoomOpen(false);
   }
 
@@ -95,9 +114,9 @@ export function PvPLobby() {
       <CardContent>
         <div className="space-y-4">
             <h2 className="text-xl font-semibold text-center text-primary">Available Rooms</h2>
-            {mockRooms.length > 0 ? (
+            {rooms.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {mockRooms.map(room => (
+                    {rooms.map(room => (
                        <PvPRoomCard key={room.id} room={room} />
                     ))}
                 </div>
