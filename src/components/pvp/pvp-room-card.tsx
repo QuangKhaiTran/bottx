@@ -22,7 +22,7 @@ export function PvPRoomCard({ room }: PvPRoomCardProps) {
                     {room.houseUsername}
                 </CardTitle>
                 <CardDescription>
-                    House Capital: ${room.houseBalance.toLocaleString()}
+                    House Capital: ${room.houseBalance.toLocaleString('en-US')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow space-y-3">

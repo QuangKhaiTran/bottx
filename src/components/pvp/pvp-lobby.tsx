@@ -24,7 +24,7 @@ const mockRooms: PvPGameSession[] = [
     minBet: 10,
     maxBet: 500,
     result: null,
-    createdAt: Date.now() - 120000,
+    createdAt: 1700000000000 - 120000,
   },
   {
     id: 'room-2',
@@ -39,7 +39,7 @@ const mockRooms: PvPGameSession[] = [
     minBet: 50,
     maxBet: 2000,
     result: null,
-    createdAt: Date.now() - 300000,
+    createdAt: 1700000000000 - 300000,
   },
   {
     id: 'room-3',
@@ -54,7 +54,7 @@ const mockRooms: PvPGameSession[] = [
     minBet: 100,
     maxBet: 10000,
     result: null,
-    createdAt: Date.now(),
+    createdAt: 1700000000000,
   }
 ];
 
