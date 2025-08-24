@@ -6,7 +6,7 @@ type HeaderProps = {
 
 export function Header({ balance }: HeaderProps) {
   return (
-    <header className="flex items-center justify-between p-4 bg-card/50 rounded-lg border max-w-7xl mx-auto">
+    <header className="flex items-center justify-between p-4 bg-card/80 backdrop-blur-sm border-b">
       <h1 className="text-2xl font-bold font-headline text-gradient">
         Lucky Dice Trader
       </h1>

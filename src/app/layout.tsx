@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { BottomNavigation } from '@/components/layout/bottom-navigation';
+import { AppShell } from '@/components/layout/app-shell';
 
 export const metadata: Metadata = {
   title: 'Lucky Dice Trader',
@@ -24,12 +25,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased no-scrollbar">
-        <div className="flex flex-col min-h-screen">
-          <main className="flex-1 pb-20 md:pb-0">
-            {children}
-          </main>
-          <BottomNavigation />
-        </div>
+        <AppShell>
+          {children}
+        </AppShell>
         <Toaster />
       </body>
     </html>
