@@ -27,13 +27,14 @@ export const createRoomSchema = z.object({
     path: ["maxBet"],
 });
 
+type CreateRoomFormValues = z.infer<typeof createRoomSchema>;
 
 interface CreateRoomFormProps {
-    onSubmit: (values: z.infer<typeof createRoomSchema>) => void;
+    onSubmit: (values: CreateRoomFormValues) => void;
 }
 
 export function CreateRoomForm({ onSubmit }: CreateRoomFormProps) {
-  const form = useForm<z.infer<typeof createRoomSchema>>({
+  const form = useForm<CreateRoomFormValues>({
     resolver: zodResolver(createRoomSchema),
     defaultValues: {
       capital: 10000,

@@ -6,12 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Crown, Home, PlusCircle, Users } from 'lucide-react';
 import type { PvPGameSession } from '@/types';
-import { CreateRoomForm } from './create-room-form';
+import { CreateRoomForm, createRoomSchema } from './create-room-form';
 import { PvPRoomCard } from './pvp-room-card';
 import type { z } from 'zod';
-import type { createRoomSchema } from './create-room-form';
 
-// Mock data based on your plan
 const initialRooms: PvPGameSession[] = [
   {
     id: 'room-1',
