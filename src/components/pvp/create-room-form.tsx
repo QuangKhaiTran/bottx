@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-export const createRoomSchema = z.object({
+const createRoomSchema = z.object({
   capital: z.coerce.number().min(10000, 'Minimum capital is $10,000'),
   minBet: z.coerce.number().min(10, 'Minimum bet is $10'),
   maxBet: z.coerce.number().min(100, 'Maximum bet must be at least $100'),

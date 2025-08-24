@@ -5,37 +5,17 @@ import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
 import {
   Controller,
-  FormProvider,
-  useFormContext,
   type ControllerProps,
   type FieldPath,
   type FieldValues,
-  type UseFormReturn,
+  FormProvider,
+  useFormContext,
 } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
-interface FormProps<TFieldValues extends FieldValues>
-  extends Omit<React.ComponentProps<"form">, "onSubmit"> {
-  form: UseFormReturn<TFieldValues>
-  onSubmit: (values: TFieldValues) => void
-}
-
-const Form = <TFieldValues extends FieldValues>({
-  form,
-  onSubmit,
-  children,
-  ...props
-}: FormProps<TFieldValues>) => {
-  return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} {...props}>
-        {children}
-      </form>
-    </FormProvider>
-  )
-}
+const Form = FormProvider
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -167,7 +147,7 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message ?? "") : children
+  const body = error ? String(error?.message) : children
 
   if (!body) {
     return null
