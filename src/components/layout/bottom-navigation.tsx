@@ -4,10 +4,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Dice5, User, Settings } from 'lucide-react';
+import { Dice5, User, Settings, Swords } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Game', icon: Dice5 },
+  { href: '/pvp', label: 'PvP', icon: Swords },
   { href: '/profile', label: 'Profile', icon: User },
   { href: '/settings', label: 'Settings', icon: Settings },
 ];
