@@ -110,8 +110,8 @@ export const useGameEngine = () => {
           case 'betting':
             return { ...prev, phase: 'rolling', countdown: ROLLING_TIME };
           case 'rolling':
-            handleRoll();
-            // handleRoll sets the next state, so we just return the current one
+            // This was the bug. handleRoll must be called outside the setter to trigger the next state change correctly.
+            // The function will be called right after this state update.
             return prev;
           case 'result':
             startNextRound();
@@ -120,9 +120,13 @@ export const useGameEngine = () => {
         return prev;
       });
     }, 1000);
+    
+    if(gameState.phase === 'rolling' && gameState.countdown === 1) {
+        handleRoll();
+    }
 
     return () => clearTimer();
-  }, [gameState.phase, handleRoll, startNextRound]);
+  }, [gameState.phase, gameState.countdown, handleRoll, startNextRound]);
 
   const placeBet = useCallback((choice: BetChoice, amount: number) => {
     if (gameState.phase !== 'betting') {
@@ -133,6 +137,11 @@ export const useGameEngine = () => {
       toast({ title: 'Error', description: 'Insufficient balance.', variant: 'destructive' });
       return false;
     }
+    if (playerBet) {
+      toast({ title: 'Error', description: 'You have already placed a bet for this round.', variant: 'destructive' });
+      return false;
+    }
+
 
     setPlayerState(prev => ({ ...prev, balance: prev.balance - amount }));
     setPlayerBet({ choice, amount });
@@ -147,7 +156,7 @@ export const useGameEngine = () => {
     }));
     toast({ title: 'Bet Placed', description: `You bet $${amount} on ${choice.toUpperCase()}.` });
     return true;
-  }, [gameState.phase, playerState.balance]);
+  }, [gameState.phase, playerState.balance, playerBet]);
 
   return { gameState, playerState, playerBet, placeBet };
 };
