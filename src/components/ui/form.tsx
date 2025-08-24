@@ -16,28 +16,23 @@ import {
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
-// Correctly define the Form component as a wrapper around FormProvider
-// This was the root cause of the persistent build error.
 const Form = <TFieldValues extends FieldValues>({
   form,
-  children,
   onSubmit,
+  children,
   className,
 }: {
   form: UseFormReturn<TFieldValues>
-  children: React.ReactNode
   onSubmit: (values: TFieldValues) => void
+  children: React.ReactNode
   className?: string
-}) => {
-  return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={className}>
-        {children}
-      </form>
-    </FormProvider>
-  )
-}
-
+}) => (
+  <FormProvider {...form}>
+    <form onSubmit={form.handleSubmit(onSubmit)} className={cn(className)}>
+      {children}
+    </form>
+  </FormProvider>
+)
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
