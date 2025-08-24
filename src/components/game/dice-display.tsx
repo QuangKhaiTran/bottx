@@ -27,9 +27,34 @@ const Dice = ({ value, colorClass, className, style }: { value: number, colorCla
     return DiceComponent ? <DiceComponent className={finalClassName} style={style} /> : null;
 };
 
+interface DiceDisplayProps {
+    phase: GamePhase;
+    countdown: number;
+    dice: [number, number, number];
+    result: BetChoice | null;
+}
 
 export function DiceDisplay({ phase, countdown, dice, result }: DiceDisplayProps) {
+  const [rollingDice, setRollingDice] = useState<[number, number, number]>([1, 2, 3]);
   const sum = dice[0] + dice[1] + dice[2];
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (phase === 'rolling') {
+      interval = setInterval(() => {
+        setRollingDice([
+          Math.floor(Math.random() * 6) + 1,
+          Math.floor(Math.random() * 6) + 1,
+          Math.floor(Math.random() * 6) + 1,
+        ] as [number, number, number]);
+      }, 100);
+    }
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [phase]);
 
   const renderContent = () => {
     switch (phase) {
@@ -42,10 +67,14 @@ export function DiceDisplay({ phase, countdown, dice, result }: DiceDisplayProps
         );
       case 'rolling':
         return (
-          <div className="flex flex-col items-center justify-center h-full">
-            <div className="text-lg text-muted-foreground mb-4">Rolling...</div>
-            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-primary"></div>
-          </div>
+            <div className="flex flex-col items-center justify-center h-full">
+                <div className="text-lg text-muted-foreground mb-4">Rolling...</div>
+                <div className="flex gap-4 mb-4">
+                    <Dice value={rollingDice[0]} colorClass="text-muted" />
+                    <Dice value={rollingDice[1]} colorClass="text-muted" />
+                    <Dice value={rollingDice[2]} colorClass="text-muted" />
+                </div>
+            </div>
         );
       case 'result':
         const diceColorClass = result === 'tai' ? 'text-yellow-400' : 'text-primary';
