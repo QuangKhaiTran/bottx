@@ -74,15 +74,15 @@ export function BotPanel({ botState, setBotState }: BotPanelProps) {
               AI Prediction
             </div>
             {botState.aiPrediction.isLoading ? (
-                <p className="text-muted-foreground animate-pulse">AI is thinking...</p>
+                <div className="text-muted-foreground animate-pulse">AI is thinking...</div>
             ) : botState.aiPrediction.predictedOutcome ? (
                 <>
-                    <p>Outcome: <Badge variant={botState.aiPrediction.predictedOutcome === 'tai' ? 'tai' : 'default'}>{botState.aiPrediction.predictedOutcome.toUpperCase()}</Badge></p>
-                    <p>Confidence: <span className='font-code'>{Math.round(botState.aiPrediction.confidenceScore * 100)}%</span></p>
+                    <div>Outcome: <Badge variant={botState.aiPrediction.predictedOutcome === 'tai' ? 'tai' : 'default'}>{botState.aiPrediction.predictedOutcome.toUpperCase()}</Badge></div>
+                    <div>Confidence: <span className='font-code'>{Math.round(botState.aiPrediction.confidenceScore * 100)}%</span></div>
                     <p className="text-muted-foreground mt-1 text-xs">{botState.aiPrediction.reasoning}</p>
                 </>
             ) : (
-                <p className="text-muted-foreground flex items-center gap-1"><AlertCircle className='w-4 h-4'/> Could not get prediction.</p>
+                <div className="text-muted-foreground flex items-center gap-1"><AlertCircle className='w-4 h-4'/> Could not get prediction.</div>
             )}
           </div>
         )}
