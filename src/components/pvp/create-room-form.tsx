@@ -46,100 +46,98 @@ export function CreateRoomForm({ onSubmit }: CreateRoomFormProps) {
   });
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="capital"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Your Capital</FormLabel>
-              <FormControl>
-                <Input type="number" placeholder="e.g. 10000" {...field} />
-              </FormControl>
-              <FormDescription>
-                The amount you are bringing as the house.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="grid grid-cols-2 gap-4">
-             <FormField
-                control={form.control}
-                name="minBet"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Min Bet</FormLabel>
-                    <FormControl>
-                        <Input type="number" placeholder="e.g. 10" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
+    <Form form={form} onSubmit={onSubmit} className="space-y-6">
+      <FormField
+        control={form.control}
+        name="capital"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Your Capital</FormLabel>
+            <FormControl>
+              <Input type="number" placeholder="e.g. 10000" {...field} />
+            </FormControl>
+            <FormDescription>
+              The amount you are bringing as the house.
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <div className="grid grid-cols-2 gap-4">
             <FormField
-                control={form.control}
-                name="maxBet"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Max Bet</FormLabel>
-                    <FormControl>
-                        <Input type="number" placeholder="e.g. 500" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-             <FormField
-                control={form.control}
-                name="maxPlayers"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Max Players</FormLabel>
+              control={form.control}
+              name="minBet"
+              render={({ field }) => (
+                  <FormItem>
+                  <FormLabel>Min Bet</FormLabel>
+                  <FormControl>
+                      <Input type="number" placeholder="e.g. 10" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                  </FormItem>
+              )}
+              />
+          <FormField
+              control={form.control}
+              name="maxBet"
+              render={({ field }) => (
+                  <FormItem>
+                  <FormLabel>Max Bet</FormLabel>
+                  <FormControl>
+                      <Input type="number" placeholder="e.g. 500" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                  </FormItem>
+              )}
+          />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="maxPlayers"
+              render={({ field }) => (
+                  <FormItem>
+                  <FormLabel>Max Players</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                      <SelectTrigger>
+                          <SelectValue placeholder="Select max players" />
+                      </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                          <SelectItem value="4">4 Players</SelectItem>
+                          <SelectItem value="6">6 Players</SelectItem>
+                          <SelectItem value="8">8 Players</SelectItem>
+                      </SelectContent>
+                  </Select>
+                  <FormMessage />
+                  </FormItem>
+              )}
+              />
+          <FormField
+              control={form.control}
+              name="betDuration"
+              render={({ field }) => (
+                  <FormItem>
+                  <FormLabel>Round Time</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select max players" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                            <SelectItem value="4">4 Players</SelectItem>
-                            <SelectItem value="6">6 Players</SelectItem>
-                            <SelectItem value="8">8 Players</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-            <FormField
-                control={form.control}
-                name="betDuration"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Round Time</FormLabel>
-                     <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select round duration" />
-                        </Trigger>
-                        </FormControl>
-                        <SelectContent>
-                            <SelectItem value="60">60 seconds</SelectItem>
-                            <SelectItem value="90">90 seconds</SelectItem>
-                            <SelectItem value="120">120 seconds</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-        </div>
-        <Button type="submit" className="w-full">Create PvP Room</Button>
-      </form>
+                      <FormControl>
+                      <SelectTrigger>
+                          <SelectValue placeholder="Select round duration" />
+                      </Trigger>
+                      </FormControl>
+                      <SelectContent>
+                          <SelectItem value="60">60 seconds</SelectItem>
+                          <SelectItem value="90">90 seconds</SelectItem>
+                          <SelectItem value="120">120 seconds</SelectItem>
+                      </SelectContent>
+                  </Select>
+                  <FormMessage />
+                  </FormItem>
+              )}
+              />
+      </div>
+      <Button type="submit" className="w-full">Create PvP Room</Button>
     </Form>
   );
 }
